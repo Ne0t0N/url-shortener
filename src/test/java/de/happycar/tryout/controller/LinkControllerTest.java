@@ -3,7 +3,6 @@ package de.happycar.tryout.controller;
 import de.happycar.tryout.Application;
 import de.happycar.tryout.bean.response.LinkResponse;
 import de.happycar.tryout.bean.type.Message;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * User: Ne0t0N
@@ -32,25 +34,25 @@ public class LinkControllerTest {
     @Test
     public void registerLink_badRequestWhenInvalidLink() {
         ResponseEntity<LinkResponse> response = linkControllerStub.registerLink("http://google\\sd");
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        Assert.assertEquals(Message.INCORRECT_LINK.getMessage(), response.getBody().getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(Message.INCORRECT_LINK.getMessage(), response.getBody().getMessage());
     }
 
     @Test
     public void registerLink_okWhenSuccessfullyRegistered() {
         ResponseEntity<LinkResponse> response = linkControllerStub.registerLink(DEFAULT_VALID_LINK);
-        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assert.assertEquals(Message.OK.getMessage(), response.getBody().getMessage());
-        Assert.assertNotNull(response.getBody().getLink());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(Message.OK.getMessage(), response.getBody().getMessage());
+        assertNotNull(response.getBody().getLink());
     }
 
     @Test
     public void registerLink_alreadyExistsMessageWhenRegisterTwice() {
         linkControllerStub.registerLink(DEFAULT_VALID_LINK);
         ResponseEntity<LinkResponse> response = linkControllerStub.registerLink(DEFAULT_VALID_LINK);
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        Assert.assertEquals(Message.ALREADY_EXISTS.getMessage(), response.getBody().getMessage());
-        Assert.assertNotNull(response.getBody().getLink());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(Message.ALREADY_EXISTS.getMessage(), response.getBody().getMessage());
+        assertNotNull(response.getBody().getLink());
     }
 
     /**
@@ -60,7 +62,7 @@ public class LinkControllerTest {
     @Test
     public void registerTrackableLink_badRequestWhenNoUtms() {
         ResponseEntity<LinkResponse> response = linkControllerStub.registerTrackableLink(DEFAULT_VALID_LINK);
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        Assert.assertEquals(Message.NO_UTMS.getMessage(), response.getBody().getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(Message.NO_UTMS.getMessage(), response.getBody().getMessage());
     }
 }
