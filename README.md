@@ -71,7 +71,6 @@ maybe I'm mistaken and pre-configured hooks is something more complicated than I
 ### How to start application ###
 
 ```
-#!java
 gradlew clean build
 java -jar build/libs/tryout-1.0.0.jar
 ```
