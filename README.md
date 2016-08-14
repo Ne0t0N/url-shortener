@@ -20,7 +20,6 @@ Example: https://www.happycar.de/info/versicherung/document/some/very/long/path 
 ### Functional Requirements
 - RESTful API (CRUD)
 - Link Tracking (e.g. referral) and Redirection
-- Optional: before redirection trigger pre-configured hooks (e.g. to https://zapier.com)
 ```
 
 ### Used frameworks and technologies ###
@@ -60,13 +59,6 @@ which is not persisted after application shutdown. In real application, there wo
 * **Mocking frameworks** - additional advantage for testing this application could be a mocking framework like Mockito.
 It would be useful, for example, when testing LinkController#redirect() method in order to mock HttpServletRequest and
 HttpServletResponse objects. As mocking frameworks are not presented in technical requirements, they were not used.
-* **Pre-configured hooks** - those were not used in this application as, in my opinion, the idea of hooks is quite broad
-which I probably don't fully understand. If the hook is simply an action before another action, then the easiest
-hook would look as below. Such approach is very easy and could be done in several minutes. But I didn't implement it as
-maybe I'm mistaken and pre-configured hooks is something more complicated than I thought.
-    * Establish API endpoint like - POST: "/link/hooks/delete_on_access"
-    * Change some variable if specified endpoint accessed
-    * Delete <ID, Link> entry from cache right after getting this entry and before redirecting
 
 ### How to start application ###
 
